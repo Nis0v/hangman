@@ -1,0 +1,57 @@
+import random
+print("H A N G M A N")
+lost = 0
+win = 0
+play = True
+while play:
+    menu = input('Type "play" to play the game, "results" to show the scoreboard, and "exit" to quit:')
+    if menu == "exit":
+        play = False
+    elif menu == "results":
+        print(f"You won: {win} times.\nYou lost: {lost} times.")
+    elif menu == "play":
+        tryes = ["python","java","swift","javascript"]
+        trye = random.choice(tryes)
+        n = len(trye) * "-"
+        n = list(n)
+        sl = list(trye)
+        last_fun = []
+        choise = 8
+        while choise > 0:
+            print("")
+            print("".join(n))
+            fun = input("Input a letter: ")
+            if len(fun) != 1:
+                print("Please, input a single letter.")
+                continue
+            if fun.isalpha() == False or fun.istitle() == True:
+                print("Please, enter a lowercase letter from the English alphabet.")
+                continue
+            if fun in last_fun:
+                print("You've already guessed this letter.")
+                continue
+            
+            if fun in sl:
+                number = sl.count(fun)
+                last_fun.append(fun)
+                while number > 1:
+                    idx = sl.index(fun)
+                    number -= 1
+                    n[idx] = fun
+                    sl[idx] = "-"
+                idx = sl.index(fun)
+                n[idx] = fun
+                sl[idx] = "-"        
+                
+            else:
+                choise -= 1
+                print("That letter doesn't appear in the word.")
+                last_fun.append(fun)
+                
+            if choise > 0 and trye == "".join(n):
+                print(f"You guessed the word {trye}!\nYou survived!")
+                win += 1
+                break
+            elif choise == 0:
+                print("You lost!")
+                lost += 1
